@@ -1,0 +1,21 @@
+PROBLEMAS
+0- ao clicar em operador sem haver digitos, ele adiciona o operador na tela
+	adicionar operador se numeroAntigo!=null
+	
+1- operadores que não deveriam aparecer na tela estão aparecendo
+	validação de qual operador foi clicado
+
+2- mais de um operador é adicionado na tela 
+	se já houver operador no display, não adicionar
+	se não, adicionar
+
+3- ao clicar repetidas vezes em operadores, retorna NaN
+	
+	
+
+5- ao realizar uma operação 
+	- ditito
+	- operador
+	- digito
+	- resultado
+		- quando se clica novamente em um digito, ele concatena
