@@ -3,7 +3,7 @@ const botoes = document.querySelectorAll(".botoes input");
 const audioClick = document.querySelector("#audioClick");
 let numeroAtual = null;
 let numeroAntigo = null;
-let numeroDiplay = null;
+let numeroDisplay = null;
 let operadorAtual = null;
 let operadorAntigo = null;
 let operadoAtivo = false;  
@@ -38,58 +38,23 @@ const checarOperador=(operador) => {
         numeroAntigo = numeroAtual;
         numeroAtual= null;
         adicionarDigito(operadorAntigo)
+        
     
     } else {
         calcular(operadorAntigo); 
         operadorAtual = operador;
-        
+        numeroAntigo = numeroDisplay;
+
     }
 }
-const checarNumero = numero => {
-    
-    return /^[0-9,]$/.test(numero)
-};
+const checarNumero = numero => {return /^[0-9,]$/.test(numero)};
 
 const calcular = (operador) => {
     switch (operador) {
-        
-        case "+/-":
-                
-            break;
-        case "%":
-            
-            
-            break;
-        case "/":
-            console.log("Botão / clicado");
-            // Ação para o botão "/"
-            break;
-        case "*":
-            console.log("Botão * clicado");
-            // Ação para o botão "*"
-            break;
-        case "-":
-            console.log("Botão - clicado");
-            // Ação para o botão "-"
-            break;
         case "+":   
-            numeroDiplay = converterNumero(numeroAntigo) + converterNumero(numeroAtual); 
+            numeroDisplay = converterNumero(numeroAntigo) + converterNumero(numeroAtual); 
             limparDisplay(); 
-            adicionarDigito(numeroDiplay); 
-
-
-            break;
-        case ",":
-            console.log("Botão , clicado");
-            // Ação para o botão ","
-            break;
-        case "=":
-            console.log("Botão = clicado");
-            // Ação para o botão "="
-            break;
-        default:
-            console.log("Botão desconhecido clicado");
-            // Ação para valores desconhecidos
+            adicionarDigito(numeroDisplay); 
             break;
     }
 }
@@ -104,12 +69,17 @@ const limparDisplay = () => {
 }
 
 const adicionarDigito = digito => {
-    
-    if (numeroAtual == null) {
-        numeroAtual = digito;
-    } else {
-        numeroAtual += digito; 
+    if(checarNumero(digito)) {
+        if(numeroAtual == null) {
+            numeroAtual = digito
+        } else {
+            numeroAtual += digito;
+        }
     }
+    
+
+
+
     if(resultado.innerHTML == "0") {
         resultado.innerHTML ="";
     }
