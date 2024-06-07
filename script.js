@@ -4,6 +4,7 @@ const audioClick = document.querySelector("#audioClick");
 let numeroAtual = null;
 let numeroAntigo = null;
 let numeroDisplay = null;
+let numeroNovo = null;
 let operadorAtual = null;
 let operadorAntigo = null;
 let operadoAtivo = false;  
@@ -28,33 +29,44 @@ botoes.forEach(botao => {
 
 // funções logica da calculadora
 const converterNumero = (numero) => {return parseFloat(numero)}
-const checarOperador=(operador) => {
-    if(operador == "AC") {
-        limparDisplay();
-    }
-    
-    if(numeroAtual == null || numeroAntigo == null) { // só uma parte foi preenchida
-        operadorAntigo = operador; 
-        numeroAntigo = numeroAtual;
-        numeroAtual= null;
-        adicionarDigito(operadorAntigo)
-        
-    
-    } else {
-        calcular(operadorAntigo); 
-        operadorAtual = operador;
-        numeroAntigo = numeroDisplay;
 
-    }
+const checarNumeroPreenchido = (numero) => {
+    if(numero!=null) {return true} else {return false} 
 }
+const checarOperador=(operador) => {
+    if(/^[=/%]$/.test(operador) || operador == "AC" || operador == "+/-") {
+        console.log("operador não pode ser adicionado")
+    }else if(resultado.innerHTML != "") {
+
+        if(/^[+-/*]$/.test(resultado.innerHTML)) {
+            console.log("operador já adicionado")
+        } else {
+            adicionarDigito(operador)
+        }
+    
+    }
+    
+     
+    
+}
+
+
+
+
+
 const checarNumero = numero => {return /^[0-9,]$/.test(numero)};
 
 const calcular = (operador) => {
     switch (operador) {
+        case "AC": 
+            limparDisplay();
+            console.log("ac clicado, tela limpa")
+        break;
         case "+":   
             numeroDisplay = converterNumero(numeroAntigo) + converterNumero(numeroAtual); 
             limparDisplay(); 
             adicionarDigito(numeroDisplay); 
+            
             break;
     }
 }
@@ -66,6 +78,7 @@ const limparDisplay = () => {
     numeroAntigo = null;
     numeroAtual = null;
     operadorAtual = null;
+    numeroDisplay = null; 
 }
 
 const adicionarDigito = digito => {
@@ -76,10 +89,6 @@ const adicionarDigito = digito => {
             numeroAtual += digito;
         }
     }
-    
-
-
-
     if(resultado.innerHTML == "0") {
         resultado.innerHTML ="";
     }
